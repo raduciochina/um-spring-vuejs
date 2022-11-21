@@ -17,6 +17,15 @@
             <button  type="submit" class="btn btn-primary" @click="login">Submit</button>
         </form>
     </div>
+    <!-- login with github button -->
+    <div class="oauth-buttons">
+        <a id="github-button" class="btn btn-block btn-social btn-github"><i class="fa-brands fa-github"></i> Sign in with Github</a>
+        <a id="facebook-button" class="btn btn-block btn-social btn-facenook"><i class="fa-brands fa-facebook"></i> Sign in with Facebook</a>
+        <a id="facebook-button" class="btn btn-block btn-social btn-google"><i class="fa-brands fa-google"></i> Sign in with Google</a>
+    </div>
+    <div>
+        <p>Don't have an account? <router-link to="/register">Register</router-link></p>
+    </div>
 </template>
 
 <script>
@@ -51,6 +60,14 @@
     #login-form {
         width: 50%;
         margin: 0 auto;
-    }   
+    }  
+    .oauth-buttons {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: 30px auto;
+    }
+
+
 </style>
 
