@@ -14,14 +14,14 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password" v-model="password">
             </div>
-            <button  type="submit" class="btn btn-primary" @click="login">Submit</button>
+            <button  type="submit" class="btn btn-primary" @click="loginWithDb">Submit</button>
         </form>
     </div>
     <!-- login with github button -->
     <div class="oauth-buttons">
-        <a id="github-button" class="btn btn-block btn-social btn-github"><i class="fa-brands fa-github"></i> Sign in with Github</a>
-        <a id="facebook-button" class="btn btn-block btn-social btn-facenook"><i class="fa-brands fa-facebook"></i> Sign in with Facebook</a>
-        <a id="facebook-button" class="btn btn-block btn-social btn-google"><i class="fa-brands fa-google"></i> Sign in with Google</a>
+        <a id="github-button" class="btn btn-block btn-social btn-github" @click="loginWithGithub"><i class="fa-brands fa-github"></i> Sign in with Github</a>
+        <a id="facebook-button" class="btn btn-block btn-social btn-facenook" @click="loginWithFacebook"><i class="fa-brands fa-facebook"></i> Sign in with Facebook</a>
+        <a id="google-button" class="btn btn-block btn-social btn-google" @click="loginWithGoogle"><i class="fa-brands fa-google"></i> Sign in with Google</a>
     </div>
     <div>
         <p>Don't have an account? <router-link to="/register">Register</router-link></p>
@@ -33,7 +33,11 @@
     export default ({
         name:'Login',
         methods: {
-            login() {
+            loginWithGoogle(){
+                console.log('login with google');
+                SecurityService.loginWithGoogle();
+            },
+            loginWithDb() {
                 SecurityService.auth(this.username, this.password)
                     .then(response => {
                         if(response.data) {

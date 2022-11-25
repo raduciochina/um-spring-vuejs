@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <h1>Home</h1>
+    <p>Welcome {{loggedInUser}}</p>
+  </div>
     <div class="container">
       <UserHeader @show-add-user="toggleAddUser()" title="User Management" :showAddUser = "showAddUser"/>
       <div v-if="showAddUser">
@@ -31,6 +35,7 @@
     },
     data() {
       return {
+        loggedInUser: '',
         user: null,
         showAddUser: false,
         showEditUser: false,
@@ -57,6 +62,21 @@
       },
       reloadPage(){
         window.location.reload();
+      },
+      parseJwt(token){
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      }
+    },
+    created() {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const loggedUser = this.parseJwt(token);
+        this.loggedInUser = loggedUser.sub;
       }
     },
   }
